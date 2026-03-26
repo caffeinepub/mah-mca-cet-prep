@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Page background: #F4F7FA */
+    --background: 97.2% 0.008 230;
+    /* Cards: #FFFFFF */
+    --card: 100% 0 0;
+    --card-foreground: 15% 0.011 255;
+    --popover: 100% 0 0;
+    --popover-foreground: 15% 0.011 255;
+    /* Primary brand: #1E63D6 */
+    --primary: 49.8% 0.188 261;
+    --primary-foreground: 100% 0 0;
+    /* Secondary */
+    --secondary: 93% 0.01 250;
+    --secondary-foreground: 20% 0.015 255;
+    /* Muted */
+    --muted: 93% 0.007 250;
+    --muted-foreground: 55% 0.02 255;
+    /* Accent */
+    --accent: 93% 0.01 250;
+    --accent-foreground: 20% 0.015 255;
+    /* Destructive */
+    --destructive: 55% 0.22 25;
+    --destructive-foreground: 100% 0 0;
+    /* Borders: #E5E7EB */
+    --border: 92% 0.005 255;
+    --input: 92% 0.005 255;
+    --ring: 49.8% 0.188 261;
+    /* Foreground text: #111827 */
+    --foreground: 15% 0.011 255;
+    /* Radius */
+    --radius: 0.5rem;
+    /* Hero gradient colors */
+    --hero-from: #2b74e9;
+    --hero-via: #7ccaf6;
+    --hero-to: #6fe3d6;
+    /* Footer: #2B2F36 */
+    --footer-bg: 22% 0.01 255;
+    /* Chart colors */
+    --chart-1: 49.8% 0.188 261;
+    --chart-2: 65% 0.16 190;
+    --chart-3: 72% 0.18 145;
+    --chart-4: 62% 0.2 25;
+    --chart-5: 72% 0.15 310;
+    /* Success/warning */
+    --success: 55% 0.18 145;
+    --warning: 72% 0.18 70;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .hero-gradient {
+    background: linear-gradient(
+      135deg,
+      #1a55c8 0%,
+      #2b74e9 30%,
+      #7ccaf6 65%,
+      #6fe3d6 100%
+    );
+  }
+
+  .blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
