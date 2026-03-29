@@ -8,6 +8,7 @@ import {
   Calculator,
   ChevronRight,
   Clock,
+  FileText,
   Languages,
   Target,
   TrendingUp,
@@ -55,6 +56,27 @@ const SUBJECT_CARDS = [
     bg: "#FEF3C7",
     tests: 10,
     page: "practice" as Page,
+  },
+];
+
+const PYQ_YEARS = [
+  {
+    year: 2023 as const,
+    color: "#1E63D6",
+    bg: "#EBF0FD",
+    description: "100 Questions · 4 Subjects",
+  },
+  {
+    year: 2024 as const,
+    color: "#0891B2",
+    bg: "#E0F7FA",
+    description: "100 Questions · 4 Subjects",
+  },
+  {
+    year: 2025 as const,
+    color: "#7C3AED",
+    bg: "#EDE9FE",
+    description: "100 Questions · 4 Subjects",
   },
 ];
 
@@ -156,7 +178,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               full mock tests, and performance analytics aligned with the
               official Shiksha.com syllabus.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
               <Button
                 size="lg"
                 className="bg-white text-primary hover:bg-blue-50 font-semibold shadow-lg"
@@ -173,6 +195,35 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                 data-ocid="hero.secondary_button"
               >
                 Practice by Subject
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/50 text-white hover:bg-white/10"
+                onClick={() => onNavigate("hard")}
+                data-ocid="hero.hard_button"
+              >
+                ⚡ Hard MCQ Set
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-green-300/70 text-green-200 hover:bg-green-300/10"
+                onClick={() => onNavigate("grammar")}
+                data-ocid="hero.grammar_button"
+              >
+                <Languages className="w-4 h-4 mr-2" />
+                Grammar
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-yellow-300/70 text-yellow-200 hover:bg-yellow-300/10"
+                onClick={() => onNavigate("pyq")}
+                data-ocid="hero.pyq_button"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Previous Year Questions
               </Button>
             </div>
             {/* Stats */}
@@ -254,6 +305,255 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                 </Card>
               </motion.div>
             ))}
+          </div>
+        </section>
+
+        {/* Grammar & English Section */}
+        <section data-ocid="grammar.section">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <Languages className="w-6 h-6 text-green-600" />
+                Grammar & English Practice
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                100 MCQs covering Vocabulary, Grammar, Idioms, RC Strategy — MAH
+                CET pattern
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onNavigate("grammar")}
+              data-ocid="grammar.view_all.button"
+            >
+              Open <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Card
+              className="border-2 hover:shadow-lg transition-all cursor-pointer group"
+              style={{ borderColor: "#05966933" }}
+              onClick={() => onNavigate("grammar")}
+            >
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row md:items-center gap-6">
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-2xl"
+                    style={{ backgroundColor: "#D1FAE5", color: "#059669" }}
+                  >
+                    <Languages className="w-8 h-8" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-foreground text-xl mb-2">
+                      Grammar & English — 100 MCQs
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      High-frequency vocabulary, grammar rules, common idioms
+                      &amp; phrases, reading comprehension strategy, skim &amp;
+                      scan technique, and RC passages — all predicted from MAH
+                      CET exam pattern.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "Vocabulary",
+                        "Grammar",
+                        "Idioms & Phrases",
+                        "RC Strategy",
+                        "Reading Comprehension",
+                      ].map((t) => (
+                        <Badge
+                          key={t}
+                          variant="outline"
+                          className="text-xs"
+                          style={{ borderColor: "#059669", color: "#059669" }}
+                        >
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <Button
+                    className="font-semibold shrink-0"
+                    style={{ backgroundColor: "#059669" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onNavigate("grammar");
+                    }}
+                    data-ocid="grammar.start.button"
+                  >
+                    Start Practice
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </section>
+
+        {/* Previous Year Questions */}
+        <section data-ocid="pyq.section">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <FileText className="w-6 h-6 text-primary" />
+                Previous Year Questions
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                Practice with actual MAH-MCA-CET papers from 2023 to 2025
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onNavigate("pyq")}
+              data-ocid="pyq.view_all.button"
+            >
+              View All <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {PYQ_YEARS.map((item, idx) => (
+              <motion.div
+                key={item.year}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <Card
+                  className="border-2 hover:shadow-lg transition-all cursor-pointer group"
+                  style={{ borderColor: `${item.color}33` }}
+                  onClick={() => onNavigate("pyq")}
+                >
+                  <CardContent className="p-6">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 text-xl font-bold"
+                      style={{ backgroundColor: item.bg, color: item.color }}
+                    >
+                      {item.year}
+                    </div>
+                    <h3 className="font-bold text-foreground text-lg mb-1">
+                      MAH-MCA-CET {item.year}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {item.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {["Math", "CS", "Reasoning", "English"].map((s) => (
+                        <Badge
+                          key={s}
+                          variant="outline"
+                          className="text-xs"
+                          style={{ borderColor: item.color, color: item.color }}
+                        >
+                          {s}
+                        </Badge>
+                      ))}
+                    </div>
+                    <Button
+                      className="w-full font-semibold group-hover:opacity-90 transition-opacity"
+                      style={{ backgroundColor: item.color }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate("pyq");
+                      }}
+                      data-ocid={`pyq.start.button.${idx + 1}`}
+                    >
+                      Start {item.year} Paper
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Mock Prediction Tests */}
+        <section data-ocid="mock_prediction.section">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <Brain className="w-6 h-6 text-purple-600" />
+                Mock Prediction Tests
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                3 full-length mocks with 150 unique questions each, covering all
+                MCA CET topics
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onNavigate("mock-prediction")}
+              data-ocid="mock_prediction.view_all.button"
+            >
+              View All <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {([1, 2, 3] as const).map((id, idx) => {
+              const colors = [
+                { color: "#1E63D6", bg: "#EBF0FD" },
+                { color: "#7C3AED", bg: "#EDE9FE" },
+                { color: "#D97706", bg: "#FEF3C7" },
+              ];
+              const { color, bg } = colors[idx];
+              return (
+                <motion.div
+                  key={id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <Card
+                    className="border-2 hover:shadow-lg transition-all cursor-pointer group"
+                    style={{ borderColor: `${color}33` }}
+                    onClick={() => onNavigate("mock-prediction")}
+                  >
+                    <CardContent className="p-6">
+                      <div
+                        className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 text-lg font-bold"
+                        style={{ backgroundColor: bg, color }}
+                      >
+                        M{id}
+                      </div>
+                      <h3 className="font-bold text-foreground text-lg mb-1">
+                        Mock {id} Prediction
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        150 Questions · 4 Subjects · Exam Level
+                      </p>
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {["Math", "CS", "Reasoning", "English"].map((s) => (
+                          <Badge
+                            key={s}
+                            variant="outline"
+                            className="text-xs"
+                            style={{ borderColor: color, color }}
+                          >
+                            {s}
+                          </Badge>
+                        ))}
+                      </div>
+                      <Button
+                        className="w-full font-semibold group-hover:opacity-90 transition-opacity"
+                        style={{ backgroundColor: color }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onNavigate("mock-prediction");
+                        }}
+                        data-ocid={`mock_prediction.start.button.${id}`}
+                      >
+                        Start Mock {id}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 

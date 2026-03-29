@@ -6,7 +6,11 @@ export type Page =
   | "mock"
   | "syllabus"
   | "resources"
-  | "performance";
+  | "performance"
+  | "hard"
+  | "pyq"
+  | "mock-prediction"
+  | "grammar";
 
 export interface ExamSession {
   id: string;

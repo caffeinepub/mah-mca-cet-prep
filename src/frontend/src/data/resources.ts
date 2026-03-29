@@ -253,4 +253,24 @@ export const LOCAL_RESOURCES: LocalResource[] = [
     url: "https://www.indiabix.com/verbal-ability/sentence-arrangement/",
     icon: "🔀",
   },
+  {
+    id: 22,
+    subject: "all",
+    title: "Vision Academy - MCA CET Complete Course",
+    description:
+      "Comprehensive MCA CET video lectures covering all subjects: Mathematics, Computer Science, Logical Reasoning, and English.",
+    type: "video",
+    url: "https://www.youtube.com/@VisionAcademy",
+    icon: "🎬",
+  },
+  {
+    id: 23,
+    subject: "all",
+    title: "MCA GYAN - YouTube Channel",
+    description:
+      "Dedicated MCA entrance preparation channel with topic-wise videos, mock tests, and exam strategy sessions.",
+    type: "video",
+    url: "https://www.youtube.com/@MCAGYAN",
+    icon: "📹",
+  },
 ];
