@@ -255,7 +255,7 @@ export function GrammarPractice({ onBack }: GrammarPracticeProps) {
                   </div>
                   <div className="text-xs text-muted-foreground">Wrong</div>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-3">
+                <div className="bg-muted rounded-xl p-3">
                   <div className="text-2xl font-bold text-gray-500">
                     {totalQ - answered}
                   </div>
@@ -305,7 +305,7 @@ export function GrammarPractice({ onBack }: GrammarPracticeProps) {
                     key={q.id}
                     className={`border-2 ${
                       isSkipped
-                        ? "border-gray-200 bg-gray-50"
+                        ? "border-border bg-muted"
                         : isCorrect
                           ? "border-green-300 bg-green-50"
                           : "border-red-300 bg-red-50"
@@ -439,14 +439,14 @@ export function GrammarPractice({ onBack }: GrammarPracticeProps) {
                 const isSelected = userAns === oi;
                 const isCorrectOpt = oi === current.correctIndex;
                 let cls =
-                  "bg-white border-border hover:border-primary hover:bg-primary/5";
+                  "bg-card border-border hover:border-primary hover:bg-primary/5";
                 if (isRevealed) {
                   if (isCorrectOpt)
                     cls =
                       "bg-green-100 border-green-500 font-semibold text-green-800";
                   else if (isSelected)
                     cls = "bg-red-100 border-red-400 text-red-800";
-                  else cls = "bg-white border-gray-200 opacity-70";
+                  else cls = "bg-card border-border opacity-70";
                 } else if (isSelected) {
                   cls = "bg-primary text-white border-primary font-medium";
                 }

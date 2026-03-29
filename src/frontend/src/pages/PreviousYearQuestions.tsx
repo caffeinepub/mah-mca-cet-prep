@@ -342,7 +342,7 @@ export function PreviousYearQuestions({ onBack }: PYQProps) {
                   <div className="text-2xl font-bold text-red-600">{wrong}</div>
                   <div className="text-xs text-muted-foreground">Wrong</div>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-3">
+                <div className="bg-muted rounded-xl p-3">
                   <div className="text-2xl font-bold text-gray-600">
                     {skipped}
                   </div>

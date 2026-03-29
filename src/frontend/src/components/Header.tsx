@@ -21,7 +21,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-border shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-card border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <button
@@ -77,7 +77,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-border px-4 pb-4">
+        <div className="md:hidden bg-card border-t border-border px-4 pb-4">
           {NAV_ITEMS.map((item) => (
             <button
               type="button"

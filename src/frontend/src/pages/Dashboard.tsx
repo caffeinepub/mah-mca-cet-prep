@@ -218,6 +218,16 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               <Button
                 size="lg"
                 variant="outline"
+                className="border-blue-300/70 text-blue-200 hover:bg-blue-300/10"
+                onClick={() => onNavigate("maths20")}
+                data-ocid="hero.maths20_button"
+              >
+                <Calculator className="w-4 h-4 mr-2" />
+                Maths 2.0
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
                 className="border-yellow-300/70 text-yellow-200 hover:bg-yellow-300/10"
                 onClick={() => onNavigate("pyq")}
                 data-ocid="hero.pyq_button"
@@ -394,6 +404,90 @@ export function Dashboard({ onNavigate }: DashboardProps) {
           </motion.div>
         </section>
 
+        {/* Maths 2.0 Section */}
+        <section data-ocid="maths20.section">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <Calculator className="w-6 h-6 text-blue-600" />
+                Maths 2.0
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                100 MCQs covering Algebra, Calculus, Probability, Matrices,
+                Trigonometry — MAH CET pattern
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onNavigate("maths20")}
+              data-ocid="maths20.view_all.button"
+            >
+              Open <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Card
+              className="border-2 hover:shadow-lg transition-all cursor-pointer group"
+              style={{ borderColor: "#1E63D633" }}
+              onClick={() => onNavigate("maths20")}
+            >
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row md:items-center gap-6">
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-2xl"
+                    style={{ backgroundColor: "#EBF0FD", color: "#1E63D6" }}
+                  >
+                    <Calculator className="w-8 h-8" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-foreground text-xl mb-2">
+                      Maths 2.0 — 100 MCQs
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Algebra, Calculus, Probability, Matrices &amp;
+                      Trigonometry — all predicted from MAH CET exam pattern
+                      with Vision Academy &amp; top MCA prep sources.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        "Algebra",
+                        "Calculus",
+                        "Probability",
+                        "Matrices",
+                        "Trigonometry",
+                      ].map((t) => (
+                        <Badge
+                          key={t}
+                          variant="outline"
+                          className="text-xs"
+                          style={{ borderColor: "#1E63D6", color: "#1E63D6" }}
+                        >
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <Button
+                    className="font-semibold shrink-0"
+                    style={{ backgroundColor: "#1E63D6" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onNavigate("maths20");
+                    }}
+                    data-ocid="maths20.start.button"
+                  >
+                    Start Practice
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </section>
         {/* Previous Year Questions */}
         <section data-ocid="pyq.section">
           <div className="flex items-center justify-between mb-6">

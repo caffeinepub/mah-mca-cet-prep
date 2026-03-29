@@ -375,7 +375,7 @@ export function MockPredictionTests({ onBack }: Props) {
                 <div className="text-xl font-bold text-red-600">{wrong}</div>
                 <div className="text-xs text-muted-foreground">Wrong</div>
               </div>
-              <div className="text-center p-3 bg-gray-50 rounded-xl">
+              <div className="text-center p-3 bg-muted rounded-xl">
                 <SkipForward className="w-6 h-6 text-gray-400 mx-auto mb-1" />
                 <div className="text-xl font-bold text-gray-500">{skipped}</div>
                 <div className="text-xs text-muted-foreground">Skipped</div>

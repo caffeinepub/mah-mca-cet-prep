@@ -6,6 +6,7 @@ import { Header } from "./components/Header";
 import { Dashboard } from "./pages/Dashboard";
 import { GrammarPractice } from "./pages/GrammarPractice";
 import { HardMCQSet } from "./pages/HardMCQSet";
+import { Maths20Practice } from "./pages/Maths20Practice";
 import { MockExam } from "./pages/MockExam";
 import { MockPredictionTests } from "./pages/MockPredictionTests";
 import { Performance } from "./pages/Performance";
@@ -60,6 +61,9 @@ function AppContent() {
         )}
         {currentPage === "grammar" && (
           <GrammarPractice onBack={() => handleNavigate("dashboard")} />
+        )}
+        {currentPage === "maths20" && (
+          <Maths20Practice onBack={() => handleNavigate("dashboard")} />
         )}
       </main>
       <Footer />

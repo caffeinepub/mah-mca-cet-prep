@@ -10,7 +10,8 @@ export type Page =
   | "hard"
   | "pyq"
   | "mock-prediction"
-  | "grammar";
+  | "grammar"
+  | "maths20";
 
 export interface ExamSession {
   id: string;

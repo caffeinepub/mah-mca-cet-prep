@@ -317,14 +317,14 @@ export function HardMCQSet() {
                             ? "border-green-400 bg-green-100 text-green-800 font-medium"
                             : oidx === userAnswer?.answerIndex && !isCorrect
                               ? "border-red-400 bg-red-100 text-red-800"
-                              : "border-border bg-white/50"
+                              : "border-border bg-card/50"
                         }`}
                       >
                         {String.fromCharCode(65 + oidx)}. {opt}
                       </div>
                     ))}
                   </div>
-                  <div className="bg-white/70 border border-border rounded-lg p-3 text-sm text-foreground">
+                  <div className="bg-card/70 border border-border rounded-lg p-3 text-sm text-foreground">
                     <span className="font-semibold text-primary">
                       Explanation:{" "}
                     </span>
@@ -366,7 +366,7 @@ export function HardMCQSet() {
   // Exam UI
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-6 bg-white rounded-xl border border-border p-4">
+      <div className="flex items-center justify-between mb-6 bg-card rounded-xl border border-border p-4">
         <div>
           <p className="text-sm text-muted-foreground">Hard MCQ Set</p>
           <p className="font-semibold text-foreground">
@@ -436,7 +436,7 @@ export function HardMCQSet() {
                       className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all ${
                         selected
                           ? "border-red-500 bg-red-50 text-red-700 font-medium"
-                          : "border-border bg-white hover:border-red-300 hover:bg-red-50/30"
+                          : "border-border bg-card hover:border-red-300 hover:bg-red-50/30"
                       }`}
                     >
                       <span className="font-medium mr-2">
@@ -502,7 +502,7 @@ export function HardMCQSet() {
                           ? "bg-yellow-300 text-yellow-800"
                           : isAnswered
                             ? "bg-red-500 text-white"
-                            : "bg-gray-100 text-gray-600"
+                            : "bg-muted text-muted-foreground"
                       }`}
                     >
                       {idx + 1}
@@ -520,7 +520,7 @@ export function HardMCQSet() {
                   {flaggedCount})
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded bg-gray-100 border" /> Not
+                  <div className="w-3 h-3 rounded bg-muted border" /> Not
                   Answered ({questions.length - answeredCount})
                 </div>
               </div>

@@ -370,13 +370,13 @@ export function MockExam() {
                             {q.options.map((opt, oidx) => (
                               <div
                                 key={opt}
-                                className={`text-sm px-3 py-2 rounded-lg border ${oidx === q.correctAnswerIndex ? "border-green-400 bg-green-100 text-green-800 font-medium" : oidx === userAnswer?.answerIndex && !isCorrect ? "border-red-400 bg-red-100 text-red-800" : "border-border bg-white/50"}`}
+                                className={`text-sm px-3 py-2 rounded-lg border ${oidx === q.correctAnswerIndex ? "border-green-400 bg-green-100 text-green-800 font-medium" : oidx === userAnswer?.answerIndex && !isCorrect ? "border-red-400 bg-red-100 text-red-800" : "border-border bg-card/50"}`}
                               >
                                 {String.fromCharCode(65 + oidx)}. {opt}
                               </div>
                             ))}
                           </div>
-                          <div className="bg-white/70 border border-border rounded-lg p-3 text-sm">
+                          <div className="bg-card/70 border border-border rounded-lg p-3 text-sm">
                             <span className="font-semibold text-primary">
                               Explanation:{" "}
                             </span>
@@ -423,7 +423,7 @@ export function MockExam() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-4">
       {/* Timer bar */}
-      <div className="flex items-center justify-between mb-4 bg-white rounded-xl border border-border p-4">
+      <div className="flex items-center justify-between mb-4 bg-card rounded-xl border border-border p-4">
         <div>
           <p className="text-sm text-muted-foreground">MAH-MCA-CET Mock Exam</p>
           <p className="text-xs text-muted-foreground">
@@ -565,7 +565,7 @@ export function MockExam() {
                               }))
                             }
                             data-ocid={`exam.option.${idx + 1}`}
-                            className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all ${selected ? "border-primary bg-primary/10 text-primary font-medium" : "border-border bg-white hover:border-primary/50 hover:bg-blue-50/50"}`}
+                            className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all ${selected ? "border-primary bg-primary/10 text-primary font-medium" : "border-border bg-card hover:border-primary/50 hover:bg-blue-50/50"}`}
                           >
                             <span className="font-medium mr-2">
                               {String.fromCharCode(65 + idx)}.
@@ -626,7 +626,7 @@ export function MockExam() {
                             key={q.id}
                             onClick={() => setCurrentIndex(globalIdx)}
                             data-ocid={`navigator.item.${idx + 1}`}
-                            className={`w-7 h-7 rounded text-xs font-medium transition-colors ${globalIdx === currentIndex ? "ring-2 ring-primary" : ""} ${isFlagged ? "bg-yellow-300 text-yellow-800" : isAnswered ? "bg-green-500 text-white" : "bg-gray-100 text-gray-600"}`}
+                            className={`w-7 h-7 rounded text-xs font-medium transition-colors ${globalIdx === currentIndex ? "ring-2 ring-primary" : ""} ${isFlagged ? "bg-yellow-300 text-yellow-800" : isAnswered ? "bg-green-500 text-white" : "bg-muted text-muted-foreground"}`}
                           >
                             {idx + 1}
                           </button>
@@ -643,7 +643,7 @@ export function MockExam() {
                         Flagged
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded bg-gray-100 border" />{" "}
+                        <div className="w-2.5 h-2.5 rounded bg-muted border" />{" "}
                         Not Answered
                       </div>
                     </div>
