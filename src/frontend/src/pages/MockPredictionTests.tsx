@@ -408,7 +408,7 @@ export function MockPredictionTests({ onBack }: Props) {
                     <XCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                   )}
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-sm font-medium text-gray-900">
                       {idx + 1}. {r.question.question}
                     </p>
                     <Badge variant="outline" className="text-xs mt-1">

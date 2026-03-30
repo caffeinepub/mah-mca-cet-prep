@@ -13,64 +13,87 @@ import {
   XCircle,
 } from "lucide-react";
 import { useState } from "react";
-import { MATHS20_QUESTIONS } from "../data/maths20Questions";
+import { BINARY_QUESTIONS } from "../data/binaryQuestions";
 
 const TOPICS = [
-  "Algebra",
-  "Calculus",
-  "Probability",
-  "Matrices",
-  "Trigonometry",
+  "Hard Trap: Binary Conversion",
+  "Hard Trap: Binary Arithmetic",
+  "Hard Trap: 2's Complement",
+  "Hard Trap: Boolean Algebra",
+  "Binary Conversion",
+  "Binary Arithmetic",
+  "Hexadecimal",
+  "2's Complement",
+  "Boolean Algebra",
 ];
 
 const TOPIC_META: Record<
   string,
-  { color: string; bg: string; border: string; desc: string; emoji: string }
+  { color: string; bg: string; emoji: string; desc: string }
 > = {
-  Algebra: {
-    color: "#1E63D6",
-    bg: "#EBF0FD",
-    border: "#1E63D6",
-    desc: "Linear equations, quadratic equations, polynomials, sets & relations, functions, binomial theorem",
-    emoji: "🔢",
+  "Hard Trap: Binary Conversion": {
+    color: "#DC2626",
+    bg: "#FEF2F2",
+    emoji: "🔥",
+    desc: "10 trap-level questions on binary-decimal-hex conversion. Designed to catch careless errors.",
   },
-  Calculus: {
-    color: "#0891B2",
-    bg: "#E0F7FA",
-    border: "#0891B2",
-    desc: "Limits, continuity, derivatives, integration, maxima/minima and definite integrals",
-    emoji: "📈",
+  "Hard Trap: Binary Arithmetic": {
+    color: "#B45309",
+    bg: "#FEF3C7",
+    emoji: "⚡",
+    desc: "10 trap-level arithmetic questions. Carry propagation, overflow and multiplication traps.",
   },
-  Probability: {
+  "Hard Trap: 2's Complement": {
     color: "#7C3AED",
     bg: "#EDE9FE",
-    border: "#7C3AED",
-    desc: "Basic probability, conditional probability, Bayes theorem, distributions, permutations & combinations",
-    emoji: "🎲",
+    emoji: "🧠",
+    desc: "10 trap-level 2's complement questions. Range, negation, overflow detection.",
   },
-  Matrices: {
-    color: "#D97706",
-    bg: "#FEF3C7",
-    border: "#D97706",
-    desc: "Matrix operations, determinants, inverse, transpose, rank and Cramer's rule",
-    emoji: "🔲",
+  "Hard Trap: Boolean Algebra": {
+    color: "#0F766E",
+    bg: "#F0FDFA",
+    emoji: "💡",
+    desc: "10 trap-level Boolean questions. Absorption, De Morgan's, expansion traps.",
   },
-  Trigonometry: {
+  "Binary Conversion": {
+    color: "#1E63D6",
+    bg: "#EBF0FD",
+    emoji: "🔢",
+    desc: "30 standard binary↔decimal conversions. Core MCA CET exam pattern questions.",
+  },
+  "Binary Arithmetic": {
+    color: "#0891B2",
+    bg: "#E0F7FA",
+    emoji: "➕",
+    desc: "30 standard addition, subtraction and multiplication problems.",
+  },
+  Hexadecimal: {
     color: "#059669",
     bg: "#D1FAE5",
-    border: "#059669",
-    desc: "Trigonometric identities, values at standard angles, inverse trig, equations & heights/distances",
-    emoji: "📐",
+    emoji: "🔡",
+    desc: "25 hexadecimal conversion questions. Binary↔Hex↔Decimal.",
+  },
+  "2's Complement": {
+    color: "#D97706",
+    bg: "#FEF3C7",
+    emoji: "🔄",
+    desc: "15 standard 2's complement and 1's complement questions.",
+  },
+  "Boolean Algebra": {
+    color: "#6D28D9",
+    bg: "#EDE9FE",
+    emoji: "⊕",
+    desc: "25 Boolean algebra laws and theorems. MAH CET exam level.",
   },
 };
 
 type Mode = "home" | "quiz" | "results" | "review";
 
-interface Maths20PracticeProps {
+interface Props {
   onBack: () => void;
 }
 
-export function Maths20Practice({ onBack }: Maths20PracticeProps) {
+export function BinaryPractice({ onBack }: Props) {
   const [mode, setMode] = useState<Mode>("home");
   const [activeTopic, setActiveTopic] = useState<string>("All");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,17 +102,22 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
 
   const questions =
     activeTopic === "All"
-      ? MATHS20_QUESTIONS
-      : MATHS20_QUESTIONS.filter((q) => q.topic === activeTopic);
+      ? BINARY_QUESTIONS
+      : BINARY_QUESTIONS.filter((q) => q.topic === activeTopic);
 
   const current = questions[currentIndex];
   const totalQ = questions.length;
   const answered = Object.keys(answers).length;
-
   const score = questions.reduce(
     (acc, q) => acc + (answers[q.id] === q.correct ? 1 : 0),
     0,
   );
+  const wrong = questions.filter(
+    (q) => q.id in answers && answers[q.id] !== q.correct,
+  ).length;
+  const skipped = totalQ - answered;
+  const pct = totalQ > 0 ? Math.round((answered / totalQ) * 100) : 0;
+  const scorePct = totalQ > 0 ? Math.round((score / totalQ) * 100) : 0;
 
   const startTopic = (topic: string) => {
     setActiveTopic(topic);
@@ -109,88 +137,80 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
     if (currentIndex < totalQ - 1) setCurrentIndex((i) => i + 1);
     else setMode("results");
   };
-
   const goPrev = () => {
     if (currentIndex > 0) setCurrentIndex((i) => i - 1);
   };
 
-  const pct = totalQ > 0 ? Math.round((answered / totalQ) * 100) : 0;
-  const scorePct = totalQ > 0 ? Math.round((score / totalQ) * 100) : 0;
-  const wrong = questions.filter(
-    (q) => q.id in answers && answers[q.id] !== q.correct,
-  ).length;
-  const skipped = totalQ - answered;
-
   if (mode === "home") {
     return (
       <div className="container mx-auto px-4 py-8 max-w-5xl">
-        {/* Header */}
         <div className="flex items-center gap-3 mb-8">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onBack}
-            data-ocid="maths20.back.button"
-          >
+          <Button variant="ghost" size="sm" onClick={onBack}>
             <ArrowLeft className="w-4 h-4 mr-1" /> Back
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Maths 2.0</h1>
+            <h1 className="text-3xl font-bold text-foreground">
+              Binary & Digital Logic
+            </h1>
             <p className="text-muted-foreground text-sm">
-              100 MCQs — Algebra, Calculus, Probability, Matrices, Trigonometry
-              | MAH CET Level
+              165 MCQs — Conversions, Arithmetic, Hex, 2's Complement, Boolean
+              Algebra | MCA CET Level
             </p>
           </div>
         </div>
 
-        {/* Practice All Button */}
         <div className="mb-6">
           <Button
             size="lg"
             className="w-full font-semibold text-base"
-            style={{ backgroundColor: "#1E63D6" }}
+            style={{ backgroundColor: "#DC2626" }}
             onClick={() => startTopic("All")}
-            data-ocid="maths20.practice_all.button"
           >
-            Practice All 100 Questions
+            🔥 Practice All 165 Questions
           </Button>
         </div>
 
-        {/* Topic Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {TOPICS.map((topic) => {
             const meta = TOPIC_META[topic];
-            const count = MATHS20_QUESTIONS.filter(
+            const count = BINARY_QUESTIONS.filter(
               (q) => q.topic === topic,
             ).length;
+            const isHard = topic.startsWith("Hard Trap");
             return (
               <Card
                 key={topic}
                 className="border-2 hover:shadow-md transition-all cursor-pointer"
-                style={{ borderColor: `${meta.border}44` }}
+                style={{ borderColor: `${meta.color}44` }}
                 onClick={() => startTopic(topic)}
-                data-ocid="maths20.topic.card"
               >
                 <CardContent className="p-5">
                   <div className="flex items-start justify-between mb-3">
                     <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
-                      style={{
-                        backgroundColor: meta.bg,
-                        color: meta.color,
-                      }}
+                      style={{ backgroundColor: meta.bg }}
                     >
                       {meta.emoji}
                     </div>
-                    <Badge
-                      variant="outline"
-                      style={{ borderColor: meta.border, color: meta.color }}
-                    >
-                      {count} MCQs
-                    </Badge>
+                    <div className="flex flex-col items-end gap-1">
+                      <Badge
+                        variant="outline"
+                        style={{ borderColor: meta.color, color: meta.color }}
+                      >
+                        {count} MCQs
+                      </Badge>
+                      {isHard && (
+                        <Badge
+                          className="text-xs"
+                          style={{ backgroundColor: meta.color, color: "#fff" }}
+                        >
+                          TRAP
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                   <h3
-                    className="font-bold text-foreground text-lg mb-1"
+                    className="font-bold text-foreground text-sm mb-1"
                     style={{ color: meta.color }}
                   >
                     {topic}
@@ -199,13 +219,12 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                     {meta.desc}
                   </p>
                   <Button
-                    className="w-full font-semibold"
+                    className="w-full font-semibold text-sm"
                     style={{ backgroundColor: meta.color }}
                     onClick={(e) => {
                       e.stopPropagation();
                       startTopic(topic);
                     }}
-                    data-ocid="maths20.start.button"
                   >
                     Start Practice
                   </Button>
@@ -218,45 +237,43 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
     );
   }
 
-  if (mode === "quiz") {
+  if (mode === "quiz" && current) {
     const isRevealed = revealed.has(current.id);
     const userAnswer = answers[current.id];
+    const meta = TOPIC_META[activeTopic] ?? TOPIC_META["Binary Conversion"];
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl">
         <div className="flex items-center gap-3 mb-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setMode("home")}
-            data-ocid="maths20.quiz_back.button"
-          >
+          <Button variant="ghost" size="sm" onClick={() => setMode("home")}>
             <ArrowLeft className="w-4 h-4 mr-1" /> Back
           </Button>
           <div>
             <h2 className="font-bold text-foreground">
-              Maths 2.0 — {activeTopic === "All" ? "All Topics" : activeTopic}
+              {activeTopic === "All" ? "All Topics" : activeTopic}
             </h2>
             <p className="text-xs text-muted-foreground">
               Question {currentIndex + 1} of {totalQ}
             </p>
           </div>
         </div>
-
         <div className="mb-4">
           <Progress value={pct} className="h-2" />
           <p className="text-xs text-muted-foreground mt-1">
             {answered}/{totalQ} answered
           </p>
         </div>
-
         <Card className="mb-4">
           <CardHeader>
             <div className="flex items-start justify-between gap-2">
               <CardTitle className="text-base font-semibold leading-relaxed">
                 Q{currentIndex + 1}. {current.question}
               </CardTitle>
-              <Badge variant="outline" className="shrink-0 text-xs">
-                {current.topic}
+              <Badge
+                variant="outline"
+                className="shrink-0 text-xs"
+                style={{ borderColor: meta.color, color: meta.color }}
+              >
+                {current.topic.replace("Hard Trap: ", "")}
               </Badge>
             </div>
           </CardHeader>
@@ -283,7 +300,6 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                   className={cls}
                   onClick={() => handleAnswer(idx)}
                   disabled={isRevealed}
-                  data-ocid="maths20.option.button"
                 >
                   <span className="font-bold mr-2">
                     {String.fromCharCode(65 + idx)}.
@@ -292,7 +308,6 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                 </button>
               );
             })}
-
             {isRevealed && (
               <div className="mt-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
                 <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-1">
@@ -305,25 +320,22 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
             )}
           </CardContent>
         </Card>
-
         <div className="flex justify-between">
           <Button
             variant="outline"
             onClick={goPrev}
             disabled={currentIndex === 0}
-            data-ocid="maths20.prev.button"
           >
             <ChevronLeft className="w-4 h-4 mr-1" /> Previous
           </Button>
           {currentIndex < totalQ - 1 ? (
-            <Button onClick={goNext} data-ocid="maths20.next.button">
+            <Button onClick={goNext}>
               Next <ChevronRight className="w-4 h-4 ml-1" />
             </Button>
           ) : (
             <Button
               style={{ backgroundColor: "#059669" }}
               onClick={() => setMode("results")}
-              data-ocid="maths20.submit.button"
             >
               Submit
             </Button>
@@ -380,24 +392,13 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
               </div>
             </div>
             <div className="flex gap-3 justify-center">
-              <Button
-                variant="outline"
-                onClick={() => startTopic(activeTopic)}
-                data-ocid="maths20.retry.button"
-              >
+              <Button variant="outline" onClick={() => startTopic(activeTopic)}>
                 Retry
               </Button>
-              <Button
-                onClick={() => setMode("review")}
-                data-ocid="maths20.review.button"
-              >
+              <Button onClick={() => setMode("review")}>
                 <BookOpen className="w-4 h-4 mr-2" /> Review Answers
               </Button>
-              <Button
-                variant="ghost"
-                onClick={() => setMode("home")}
-                data-ocid="maths20.home.button"
-              >
+              <Button variant="ghost" onClick={() => setMode("home")}>
                 Home
               </Button>
             </div>
@@ -407,16 +408,10 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
     );
   }
 
-  // Review mode
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="flex items-center gap-3 mb-6">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setMode("results")}
-          data-ocid="maths20.review_back.button"
-        >
+        <Button variant="ghost" size="sm" onClick={() => setMode("results")}>
           <ArrowLeft className="w-4 h-4 mr-1" /> Back to Results
         </Button>
         <h2 className="font-bold text-foreground">Answer Review</h2>
@@ -438,7 +433,6 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                       ? "#059669"
                       : "#EF4444",
                 }}
-                data-ocid={`maths20.review.item.${idx + 1}`}
               >
                 <CardContent className="p-4">
                   <div className="flex items-start gap-2 mb-3">

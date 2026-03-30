@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   BookOpen,
@@ -8,8 +8,10 @@ import {
   Calculator,
   ChevronRight,
   Clock,
+  Cpu,
   FileText,
   Languages,
+  Play,
   Target,
   TrendingUp,
   Trophy,
@@ -17,8 +19,7 @@ import {
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import { LOCAL_RESOURCES } from "../data/resources";
-import type { Page } from "../types/exam";
-import type { ExamSession } from "../types/exam";
+import type { ExamSession, Page } from "../types/exam";
 
 const SUBJECT_CARDS = [
   {
@@ -224,6 +225,26 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               >
                 <Calculator className="w-4 h-4 mr-2" />
                 Maths 2.0
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-red-300/70 text-red-200 hover:bg-red-300/10"
+                onClick={() => onNavigate("youtube")}
+                data-ocid="hero.youtube_button"
+              >
+                <Play className="w-4 h-4 mr-2" />
+                YouTube Questions
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-orange-300/70 text-orange-200 hover:bg-orange-300/10"
+                onClick={() => onNavigate("binary")}
+                data-ocid="hero.binary_button"
+              >
+                <Cpu className="w-4 h-4 mr-2" />
+                Binary
               </Button>
               <Button
                 size="lg"
@@ -488,6 +509,185 @@ export function Dashboard({ onNavigate }: DashboardProps) {
             </Card>
           </motion.div>
         </section>
+
+        {/* YouTube Questions Section */}
+        <section data-ocid="youtube.section">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <Play className="w-6 h-6 text-red-600" />
+                YouTube Questions
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                100 MCQs inspired by Vision Academy &amp; CUET PG Adda — All 4
+                MCA CET subjects
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigate("youtube")}
+              data-ocid="youtube.view_all.button"
+            >
+              View All
+            </Button>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Card
+              className="border-2 hover:shadow-lg transition-all cursor-pointer"
+              style={{ borderColor: "#EF444444" }}
+              onClick={() => onNavigate("youtube")}
+              data-ocid="youtube.card"
+            >
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl bg-red-100 dark:bg-red-950">
+                    📺
+                  </div>
+                  <Badge
+                    variant="outline"
+                    className="border-red-500 text-red-600"
+                  >
+                    100 MCQs
+                  </Badge>
+                </div>
+                <h3 className="font-bold text-foreground text-xl mb-2">
+                  YouTube Questions
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  4 sub-boxes: Mathematics, Computer Science, Logical Reasoning,
+                  English — questions inspired by Vision Academy &amp; CUET PG
+                  Adda YouTube channels
+                </p>
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  {[
+                    { label: "Mathematics", color: "#1E63D6", emoji: "📐" },
+                    { label: "CS", color: "#0891B2", emoji: "💻" },
+                    { label: "Reasoning", color: "#7C3AED", emoji: "🧠" },
+                    { label: "English", color: "#059669", emoji: "📚" },
+                  ].map((s) => (
+                    <div
+                      key={s.label}
+                      className="rounded-lg p-2 text-center text-xs font-medium"
+                      style={{
+                        backgroundColor: `${s.color}15`,
+                        color: s.color,
+                      }}
+                    >
+                      <div className="text-lg mb-1">{s.emoji}</div>
+                      {s.label}
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  className="w-full font-semibold"
+                  style={{ backgroundColor: "#DC2626" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onNavigate("youtube");
+                  }}
+                  data-ocid="youtube.start.button"
+                >
+                  <Play className="w-4 h-4 mr-2" />
+                  Start YouTube Practice
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </section>
+
+        {/* Binary & Digital Logic Section */}
+        <section data-ocid="binary.section">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <Cpu className="w-6 h-6 text-red-600" />
+                Binary & Digital Logic
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                165 MCQs — Hard Trap Questions, Binary Conversions, Arithmetic,
+                Hex, 2's Complement &amp; Boolean Algebra
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigate("binary")}
+              data-ocid="binary.view_all.button"
+            >
+              View All
+            </Button>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Card
+              className="border-2 hover:shadow-lg transition-all cursor-pointer"
+              style={{ borderColor: "#DC262644" }}
+              onClick={() => onNavigate("binary")}
+              data-ocid="binary.card"
+            >
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl bg-red-100 dark:bg-red-950">
+                    🔢
+                  </div>
+                  <Badge
+                    variant="outline"
+                    className="border-red-600 text-red-600"
+                  >
+                    165 MCQs
+                  </Badge>
+                </div>
+                <h3 className="font-bold text-foreground text-xl mb-2">
+                  Binary & Digital Logic
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  165 MCQs — Hard Trap Questions, Binary Conversions,
+                  Arithmetic, Hex, 2's Complement &amp; Boolean Algebra —
+                  designed to expose weaknesses and build exam-day speed.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {[
+                    "Trap MCQs",
+                    "Conversions",
+                    "Arithmetic",
+                    "Hexadecimal",
+                    "Boolean",
+                  ].map((t) => (
+                    <Badge
+                      key={t}
+                      variant="outline"
+                      className="text-xs"
+                      style={{ borderColor: "#DC2626", color: "#DC2626" }}
+                    >
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+                <Button
+                  className="w-full font-semibold"
+                  style={{ backgroundColor: "#DC2626" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onNavigate("binary");
+                  }}
+                  data-ocid="binary.start.button"
+                >
+                  <Cpu className="w-4 h-4 mr-2" />
+                  Start Binary Practice
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </section>
+
         {/* Previous Year Questions */}
         <section data-ocid="pyq.section">
           <div className="flex items-center justify-between mb-6">

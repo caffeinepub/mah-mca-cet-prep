@@ -221,7 +221,7 @@ export function PreviousYearQuestions({ onBack }: PYQProps) {
           {/* Question */}
           <Card className="mb-6 border border-border shadow-sm">
             <CardContent className="p-6">
-              <p className="text-base font-medium text-foreground leading-relaxed">
+              <p className="text-base font-medium text-gray-900 leading-relaxed">
                 {q.question}
               </p>
             </CardContent>
@@ -368,7 +368,7 @@ export function PreviousYearQuestions({ onBack }: PYQProps) {
               >
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <p className="text-sm font-medium text-foreground flex-1">
+                    <p className="text-sm font-medium text-gray-900 flex-1">
                       <span className="text-muted-foreground mr-2">
                         Q{idx + 1}.
                       </span>

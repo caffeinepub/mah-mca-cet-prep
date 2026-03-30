@@ -13,86 +13,77 @@ import {
   XCircle,
 } from "lucide-react";
 import { useState } from "react";
-import { MATHS20_QUESTIONS } from "../data/maths20Questions";
+import { YOUTUBE_QUESTIONS } from "../data/youtubeQuestions";
 
-const TOPICS = [
-  "Algebra",
-  "Calculus",
-  "Probability",
-  "Matrices",
-  "Trigonometry",
+const SUBJECTS = [
+  "Mathematics",
+  "Computer Science",
+  "Logical Reasoning",
+  "English",
 ];
 
-const TOPIC_META: Record<
+const SUBJECT_META: Record<
   string,
   { color: string; bg: string; border: string; desc: string; emoji: string }
 > = {
-  Algebra: {
+  Mathematics: {
     color: "#1E63D6",
     bg: "#EBF0FD",
     border: "#1E63D6",
-    desc: "Linear equations, quadratic equations, polynomials, sets & relations, functions, binomial theorem",
-    emoji: "🔢",
+    desc: "Algebra, Calculus, Probability, Matrices, Trigonometry — Vision Academy style",
+    emoji: "📐",
   },
-  Calculus: {
+  "Computer Science": {
     color: "#0891B2",
     bg: "#E0F7FA",
     border: "#0891B2",
-    desc: "Limits, continuity, derivatives, integration, maxima/minima and definite integrals",
-    emoji: "📈",
+    desc: "Data Structures, DBMS, OS, Networking, C Programming, Algorithms — CUET PG Adda style",
+    emoji: "💻",
   },
-  Probability: {
+  "Logical Reasoning": {
     color: "#7C3AED",
     bg: "#EDE9FE",
     border: "#7C3AED",
-    desc: "Basic probability, conditional probability, Bayes theorem, distributions, permutations & combinations",
-    emoji: "🎲",
+    desc: "Syllogisms, Coding-Decoding, Blood Relations, Number Series — Vision Academy style",
+    emoji: "🧠",
   },
-  Matrices: {
-    color: "#D97706",
-    bg: "#FEF3C7",
-    border: "#D97706",
-    desc: "Matrix operations, determinants, inverse, transpose, rank and Cramer's rule",
-    emoji: "🔲",
-  },
-  Trigonometry: {
+  English: {
     color: "#059669",
     bg: "#D1FAE5",
     border: "#059669",
-    desc: "Trigonometric identities, values at standard angles, inverse trig, equations & heights/distances",
-    emoji: "📐",
+    desc: "Vocabulary, Grammar, Idioms & Phrases, Reading Comprehension — CUET PG Adda style",
+    emoji: "📚",
   },
 };
 
 type Mode = "home" | "quiz" | "results" | "review";
 
-interface Maths20PracticeProps {
+interface YouTubePracticeProps {
   onBack: () => void;
 }
 
-export function Maths20Practice({ onBack }: Maths20PracticeProps) {
+export function YouTubePractice({ onBack }: YouTubePracticeProps) {
   const [mode, setMode] = useState<Mode>("home");
-  const [activeTopic, setActiveTopic] = useState<string>("All");
+  const [activeSubject, setActiveSubject] = useState<string>("All");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
 
   const questions =
-    activeTopic === "All"
-      ? MATHS20_QUESTIONS
-      : MATHS20_QUESTIONS.filter((q) => q.topic === activeTopic);
+    activeSubject === "All"
+      ? YOUTUBE_QUESTIONS
+      : YOUTUBE_QUESTIONS.filter((q) => q.subject === activeSubject);
 
   const current = questions[currentIndex];
   const totalQ = questions.length;
   const answered = Object.keys(answers).length;
-
   const score = questions.reduce(
     (acc, q) => acc + (answers[q.id] === q.correct ? 1 : 0),
     0,
   );
 
-  const startTopic = (topic: string) => {
-    setActiveTopic(topic);
+  const startSubject = (subject: string) => {
+    setActiveSubject(subject);
     setCurrentIndex(0);
     setAnswers({});
     setRevealed(new Set());
@@ -124,61 +115,79 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
   if (mode === "home") {
     return (
       <div className="container mx-auto px-4 py-8 max-w-5xl">
-        {/* Header */}
-        <div className="flex items-center gap-3 mb-8">
+        <div className="flex items-center gap-3 mb-2">
           <Button
             variant="ghost"
             size="sm"
             onClick={onBack}
-            data-ocid="maths20.back.button"
+            data-ocid="yt.back.button"
           >
             <ArrowLeft className="w-4 h-4 mr-1" /> Back
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Maths 2.0</h1>
+            <h1 className="text-3xl font-bold text-foreground">
+              YouTube Questions
+            </h1>
             <p className="text-muted-foreground text-sm">
-              100 MCQs — Algebra, Calculus, Probability, Matrices, Trigonometry
-              | MAH CET Level
+              100 MCQs — All 4 subjects | Inspired by Vision Academy & CUET PG
+              Adda
             </p>
           </div>
         </div>
 
-        {/* Practice All Button */}
+        {/* Channel badges */}
+        <div className="flex gap-2 mb-6 ml-1 flex-wrap">
+          <Badge variant="outline" className="text-red-600 border-red-400">
+            📺 Vision Academy
+          </Badge>
+          <Badge
+            variant="outline"
+            className="text-orange-600 border-orange-400"
+          >
+            📺 CUET PG Adda
+          </Badge>
+          <Badge variant="outline" className="text-blue-600 border-blue-400">
+            📺 MCA GYAN
+          </Badge>
+          <Badge
+            variant="outline"
+            className="text-purple-600 border-purple-400"
+          >
+            📺 Aspire Study
+          </Badge>
+        </div>
+
         <div className="mb-6">
           <Button
             size="lg"
             className="w-full font-semibold text-base"
             style={{ backgroundColor: "#1E63D6" }}
-            onClick={() => startTopic("All")}
-            data-ocid="maths20.practice_all.button"
+            onClick={() => startSubject("All")}
+            data-ocid="yt.practice_all.button"
           >
             Practice All 100 Questions
           </Button>
         </div>
 
-        {/* Topic Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {TOPICS.map((topic) => {
-            const meta = TOPIC_META[topic];
-            const count = MATHS20_QUESTIONS.filter(
-              (q) => q.topic === topic,
+          {SUBJECTS.map((subject) => {
+            const meta = SUBJECT_META[subject];
+            const count = YOUTUBE_QUESTIONS.filter(
+              (q) => q.subject === subject,
             ).length;
             return (
               <Card
-                key={topic}
+                key={subject}
                 className="border-2 hover:shadow-md transition-all cursor-pointer"
                 style={{ borderColor: `${meta.border}44` }}
-                onClick={() => startTopic(topic)}
-                data-ocid="maths20.topic.card"
+                onClick={() => startSubject(subject)}
+                data-ocid="yt.subject.card"
               >
                 <CardContent className="p-5">
                   <div className="flex items-start justify-between mb-3">
                     <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
-                      style={{
-                        backgroundColor: meta.bg,
-                        color: meta.color,
-                      }}
+                      style={{ backgroundColor: meta.bg, color: meta.color }}
                     >
                       {meta.emoji}
                     </div>
@@ -193,7 +202,7 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                     className="font-bold text-foreground text-lg mb-1"
                     style={{ color: meta.color }}
                   >
-                    {topic}
+                    {subject}
                   </h3>
                   <p className="text-xs text-muted-foreground mb-4">
                     {meta.desc}
@@ -203,9 +212,9 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                     style={{ backgroundColor: meta.color }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      startTopic(topic);
+                      startSubject(subject);
                     }}
-                    data-ocid="maths20.start.button"
+                    data-ocid="yt.start.button"
                   >
                     Start Practice
                   </Button>
@@ -218,9 +227,10 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
     );
   }
 
-  if (mode === "quiz") {
+  if (mode === "quiz" && current) {
     const isRevealed = revealed.has(current.id);
     const userAnswer = answers[current.id];
+    const meta = SUBJECT_META[current.subject] ?? { color: "#1E63D6" };
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl">
         <div className="flex items-center gap-3 mb-6">
@@ -228,13 +238,14 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
             variant="ghost"
             size="sm"
             onClick={() => setMode("home")}
-            data-ocid="maths20.quiz_back.button"
+            data-ocid="yt.quiz_back.button"
           >
             <ArrowLeft className="w-4 h-4 mr-1" /> Back
           </Button>
           <div>
             <h2 className="font-bold text-foreground">
-              Maths 2.0 — {activeTopic === "All" ? "All Topics" : activeTopic}
+              YouTube Questions —{" "}
+              {activeSubject === "All" ? "All Subjects" : activeSubject}
             </h2>
             <p className="text-xs text-muted-foreground">
               Question {currentIndex + 1} of {totalQ}
@@ -255,8 +266,12 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
               <CardTitle className="text-base font-semibold leading-relaxed">
                 Q{currentIndex + 1}. {current.question}
               </CardTitle>
-              <Badge variant="outline" className="shrink-0 text-xs">
-                {current.topic}
+              <Badge
+                variant="outline"
+                className="shrink-0 text-xs"
+                style={{ borderColor: meta.color, color: meta.color }}
+              >
+                {current.subject}
               </Badge>
             </div>
           </CardHeader>
@@ -283,7 +298,7 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                   className={cls}
                   onClick={() => handleAnswer(idx)}
                   disabled={isRevealed}
-                  data-ocid="maths20.option.button"
+                  data-ocid="yt.option.button"
                 >
                   <span className="font-bold mr-2">
                     {String.fromCharCode(65 + idx)}.
@@ -292,7 +307,6 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                 </button>
               );
             })}
-
             {isRevealed && (
               <div className="mt-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
                 <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-1">
@@ -311,19 +325,19 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
             variant="outline"
             onClick={goPrev}
             disabled={currentIndex === 0}
-            data-ocid="maths20.prev.button"
+            data-ocid="yt.prev.button"
           >
             <ChevronLeft className="w-4 h-4 mr-1" /> Previous
           </Button>
           {currentIndex < totalQ - 1 ? (
-            <Button onClick={goNext} data-ocid="maths20.next.button">
+            <Button onClick={goNext} data-ocid="yt.next.button">
               Next <ChevronRight className="w-4 h-4 ml-1" />
             </Button>
           ) : (
             <Button
               style={{ backgroundColor: "#059669" }}
               onClick={() => setMode("results")}
-              data-ocid="maths20.submit.button"
+              data-ocid="yt.submit.button"
             >
               Submit
             </Button>
@@ -354,7 +368,7 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
               {scorePct}%
             </div>
             <p className="text-muted-foreground text-sm">
-              {activeTopic === "All" ? "All Topics" : activeTopic}
+              {activeSubject === "All" ? "All Subjects" : activeSubject}
             </p>
             <div className="grid grid-cols-3 gap-4">
               <div className="rounded-xl p-4 bg-green-50 dark:bg-green-950">
@@ -382,21 +396,21 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
             <div className="flex gap-3 justify-center">
               <Button
                 variant="outline"
-                onClick={() => startTopic(activeTopic)}
-                data-ocid="maths20.retry.button"
+                onClick={() => startSubject(activeSubject)}
+                data-ocid="yt.retry.button"
               >
                 Retry
               </Button>
               <Button
                 onClick={() => setMode("review")}
-                data-ocid="maths20.review.button"
+                data-ocid="yt.review.button"
               >
                 <BookOpen className="w-4 h-4 mr-2" /> Review Answers
               </Button>
               <Button
                 variant="ghost"
                 onClick={() => setMode("home")}
-                data-ocid="maths20.home.button"
+                data-ocid="yt.home.button"
               >
                 Home
               </Button>
@@ -415,7 +429,7 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
           variant="ghost"
           size="sm"
           onClick={() => setMode("results")}
-          data-ocid="maths20.review_back.button"
+          data-ocid="yt.review_back.button"
         >
           <ArrowLeft className="w-4 h-4 mr-1" /> Back to Results
         </Button>
@@ -438,7 +452,7 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                       ? "#059669"
                       : "#EF4444",
                 }}
-                data-ocid={`maths20.review.item.${idx + 1}`}
+                data-ocid={`yt.review.item.${idx + 1}`}
               >
                 <CardContent className="p-4">
                   <div className="flex items-start gap-2 mb-3">
@@ -453,9 +467,14 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                       <p className="text-sm font-medium text-gray-900">
                         Q{idx + 1}. {q.question}
                       </p>
-                      <Badge variant="outline" className="mt-1 text-xs">
-                        {q.topic}
-                      </Badge>
+                      <div className="flex gap-1 mt-1">
+                        <Badge variant="outline" className="text-xs">
+                          {q.subject}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {q.topic}
+                        </Badge>
+                      </div>
                     </div>
                   </div>
                   <div className="space-y-1 text-xs pl-7">
@@ -467,7 +486,7 @@ export function Maths20Practice({ onBack }: Maths20PracticeProps) {
                             ? "bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-300 font-semibold"
                             : i === ua
                               ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300"
-                              : "text-muted-foreground"
+                              : "text-gray-900 dark:text-gray-100"
                         }`}
                       >
                         {String.fromCharCode(65 + i)}. {opt}

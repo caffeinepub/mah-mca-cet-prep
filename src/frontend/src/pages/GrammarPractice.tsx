@@ -336,7 +336,7 @@ export function GrammarPractice({ onBack }: GrammarPracticeProps) {
                               {q.topic}
                             </Badge>
                           </div>
-                          <p className="font-medium text-sm text-foreground whitespace-pre-line mb-3">
+                          <p className="font-medium text-sm text-gray-900 whitespace-pre-line mb-3">
                             {q.question}
                           </p>
                           <div className="space-y-1.5">

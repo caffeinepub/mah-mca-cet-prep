@@ -301,7 +301,7 @@ export function MockExam() {
                   className="w-3 h-3 rounded-full mb-2"
                   style={{ backgroundColor: SUBJECT_COLORS[b.subject] }}
                 />
-                <p className="font-medium text-sm text-foreground mb-1">
+                <p className="font-medium text-sm text-gray-900 mb-1">
                   {SUBJECT_LABELS[b.subject]}
                 </p>
                 <div
@@ -362,7 +362,7 @@ export function MockExam() {
                             >
                               {idx + 1}
                             </span>
-                            <p className="font-medium text-foreground text-sm">
+                            <p className="font-medium text-gray-900 text-sm">
                               {q.text}
                             </p>
                           </div>
@@ -370,14 +370,14 @@ export function MockExam() {
                             {q.options.map((opt, oidx) => (
                               <div
                                 key={opt}
-                                className={`text-sm px-3 py-2 rounded-lg border ${oidx === q.correctAnswerIndex ? "border-green-400 bg-green-100 text-green-800 font-medium" : oidx === userAnswer?.answerIndex && !isCorrect ? "border-red-400 bg-red-100 text-red-800" : "border-border bg-card/50"}`}
+                                className={`text-sm px-3 py-2 rounded-lg border ${oidx === q.correctAnswerIndex ? "border-green-400 bg-green-100 text-green-800 font-medium" : oidx === userAnswer?.answerIndex && !isCorrect ? "border-red-400 bg-red-100 text-red-800" : "border-border bg-card/50 text-gray-900"}`}
                               >
                                 {String.fromCharCode(65 + oidx)}. {opt}
                               </div>
                             ))}
                           </div>
-                          <div className="bg-card/70 border border-border rounded-lg p-3 text-sm">
-                            <span className="font-semibold text-primary">
+                          <div className="bg-card/70 border border-border rounded-lg p-3 text-sm text-gray-900">
+                            <span className="font-semibold text-blue-700">
                               Explanation:{" "}
                             </span>
                             {q.explanation}

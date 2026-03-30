@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { BinaryPractice } from "./pages/BinaryPractice";
 import { Dashboard } from "./pages/Dashboard";
 import { GrammarPractice } from "./pages/GrammarPractice";
 import { HardMCQSet } from "./pages/HardMCQSet";
@@ -14,6 +15,7 @@ import { PracticeTest } from "./pages/PracticeTest";
 import { PreviousYearQuestions } from "./pages/PreviousYearQuestions";
 import { Resources } from "./pages/Resources";
 import { Syllabus } from "./pages/Syllabus";
+import { YouTubePractice } from "./pages/YouTubePractice";
 import type { Page } from "./types/exam";
 
 const queryClient = new QueryClient({
@@ -64,6 +66,12 @@ function AppContent() {
         )}
         {currentPage === "maths20" && (
           <Maths20Practice onBack={() => handleNavigate("dashboard")} />
+        )}
+        {currentPage === "youtube" && (
+          <YouTubePractice onBack={() => handleNavigate("dashboard")} />
+        )}
+        {currentPage === "binary" && (
+          <BinaryPractice onBack={() => handleNavigate("dashboard")} />
         )}
       </main>
       <Footer />

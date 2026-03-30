@@ -11,7 +11,9 @@ export type Page =
   | "pyq"
   | "mock-prediction"
   | "grammar"
-  | "maths20";
+  | "maths20"
+  | "youtube"
+  | "binary";
 
 export interface ExamSession {
   id: string;
